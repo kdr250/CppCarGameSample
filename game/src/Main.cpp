@@ -1,7 +1,13 @@
 #include <iostream>
 
-int main() {
-	std::cout << "Hello World!" << std::endl;
+int add(int a, int b)
+{
+    return a + b;
+}
 
-	return 0;
+int main()
+{
+    std::cout << "Hello World!" << std::endl;
+
+    return 0;
 }
