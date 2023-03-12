@@ -2,5 +2,14 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Position.h" />
+    <ClCompile Include="src\EnemyCar.cpp" />
+    <ClCompile Include="src\PlayerCar.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\EnemyCar.h" />
+    <ClInclude Include="src\PlayerCar.h" />
+    <ClInclude Include="src\Game.h" />
   </ItemGroup>
 </Project>
