@@ -35,7 +35,7 @@ void Game::SetCursor(bool isVisible, DWORD size)
 {
     if (size == 0)
         size = 20;
-    CONSOLE_CURSOR_INFO lpCursor;
+    CONSOLE_CURSOR_INFO lpCursor {};
     lpCursor.bVisible = isVisible;
     lpCursor.dwSize   = size;
     SetConsoleCursorInfo(console, &lpCursor);
@@ -103,7 +103,7 @@ void Game::DrawCar()
 
 void Game::MoveCar(int moveX)
 {
-    this->playerCar->Move(moveX);
+    this->playerCar->MoveX(moveX);
 }
 
 void Game::EraseCar()
@@ -116,7 +116,7 @@ void Game::Quit()
     isPlaying = false;
 }
 
-void Game::DisplayMenu()
+void Game::DisplayMainMenu()
 {
     std::system("CLS");
     GoTo(Position(10, 5));
@@ -133,4 +133,84 @@ void Game::DisplayMenu()
     std::cout << "3. Quit";
     GoTo(Position(10, 13));
     std::cout << "Select option: ";
+}
+
+void Game::DisplayPlayStartMenu()
+{
+    GoTo(Position(WINDOW_WIDTH + 7, 2));
+    std::cout << "Car Game";
+    GoTo(Position(WINDOW_WIDTH + 6, 4));
+    std::cout << "----------";
+    GoTo(Position(WINDOW_WIDTH + 6, 6));
+    std::cout << "----------";
+    GoTo(Position(WINDOW_WIDTH + 7, 12));
+    std::cout << "Control ";
+    GoTo(Position(WINDOW_WIDTH + 7, 13));
+    std::cout << "----------";
+    GoTo(Position(WINDOW_WIDTH + 2, 14));
+    std::cout << " A Key - Left";
+    GoTo(Position(WINDOW_WIDTH + 2, 15));
+    std::cout << " D Key - Right";
+
+    GoTo(Position(18, 5));
+    std::cout << "Press any key to start!";
+    _getch();
+    GoTo(Position(18, 5));
+    std::cout << "                      ";
+}
+
+void Game::GenerateEnemyCars()
+{
+    enemyCars.push_back(EnemyCar::Generate());
+    enemyCars.push_back(EnemyCar::Generate());
+}
+
+void Game::UpdateEnemyCars()
+{
+    std::for_each(enemyCars.begin(),
+                  enemyCars.end(),
+                  [this](std::unique_ptr<EnemyCar>& enemy)
+                  {
+                      enemy->MoveY(1);
+                      if (!enemy->CanSurvive(SCREEN_HEIGHT))
+                      {
+                          this->OneUpScore();
+                          this->UpdateScore();
+                          enemy->Dead();
+                      }
+                  });
+
+    enemyCars.erase(std::remove_if(std::begin(enemyCars),
+                                   std::end(enemyCars),
+                                   [](std::unique_ptr<EnemyCar>& enemy)
+                                   {
+                                       return enemy->IsDead();
+                                   }),
+                    std::cend(enemyCars));
+
+    int diff = EnemyCar::NUMBER_OF_ENEMIES - enemyCars.size();
+    for (int i = 0; i < diff; i++)
+    {
+        enemyCars.push_back(EnemyCar::Generate());
+    }
+}
+
+void Game::DrawEnemyCars()
+{
+    std::for_each(enemyCars.begin(),
+                  enemyCars.end(),
+                  [this](std::unique_ptr<EnemyCar>& enemy)
+                  {
+                      enemy->Draw(gotoFunction);
+                  });
+}
+
+void Game::EraseEnemyCars()
+{
+    std::for_each(enemyCars.begin(),
+                  enemyCars.end(),
+                  [this](std::unique_ptr<EnemyCar>& enemy)
+                  {
+                      enemy->Erase(this->gotoFunction);
+                  });
 }

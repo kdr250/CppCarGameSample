@@ -22,6 +22,6 @@ public:
     PlayerCar(int windowWidth);
 
     void Draw(std::function<void(Position)> gotoFunction);
-    void Move(int moveX);
+    void MoveX(int moveX);
     void Erase(std::function<void(Position)> gotoFunction);
 };

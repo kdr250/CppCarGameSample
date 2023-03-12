@@ -1,6 +1,7 @@
 #pragma once
 
 #include <windows.h>
+#include <algorithm>
 #include <functional>
 #include <memory>
 #include <vector>
@@ -40,6 +41,11 @@ public:
     void DrawCar();
     void MoveCar(int moveX);
     void EraseCar();
-    void DisplayMenu();
+    void DisplayMainMenu();
+    void DisplayPlayStartMenu();
     void Quit();
+    void GenerateEnemyCars();
+    void UpdateEnemyCars();
+    void DrawEnemyCars();
+    void EraseEnemyCars();
 };

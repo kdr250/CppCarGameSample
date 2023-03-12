@@ -60,18 +60,6 @@ void ResetEnemy(int index)
     GenerateEnemy(index);
 }
 
-void EraseCar()
-{
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            game.GoTo(Position(j + carPos, i + 22));
-            std::cout << " ";
-        }
-    }
-}
-
 int Collision()
 {
     if (enemyY[0] + 4 >= 23)
@@ -94,29 +82,9 @@ void Play()
     std::system("CLS");
     game.DrawBorder();
     game.UpdateScore();
-    GenerateEnemy(0);
-    GenerateEnemy(1);
+    game.GenerateEnemyCars();
 
-    game.GoTo(Position(WINDOW_WIDTH + 7, 2));
-    std::cout << "Car Game";
-    game.GoTo(Position(WINDOW_WIDTH + 6, 4));
-    std::cout << "----------";
-    game.GoTo(Position(WINDOW_WIDTH + 6, 6));
-    std::cout << "----------";
-    game.GoTo(Position(WINDOW_WIDTH + 7, 12));
-    std::cout << "Control ";
-    game.GoTo(Position(WINDOW_WIDTH + 7, 13));
-    std::cout << "----------";
-    game.GoTo(Position(WINDOW_WIDTH + 2, 14));
-    std::cout << " A Key - Left";
-    game.GoTo(Position(WINDOW_WIDTH + 2, 15));
-    std::cout << " D Key - Right";
-
-    game.GoTo(Position(18, 5));
-    std::cout << "Press any key to start!";
-    _getch();
-    game.GoTo(Position(18, 5));
-    std::cout << "                      ";
+    game.DisplayPlayStartMenu();
 
     while (true)
     {
@@ -135,9 +103,10 @@ void Play()
                 break;
         }
 
+        game.UpdateEnemyCars();
+
         game.DrawCar();
-        DrawEnemy(0);
-        DrawEnemy(1);
+        game.DrawEnemyCars();
 
         if (Collision() == 1)
         {
@@ -147,43 +116,19 @@ void Play()
 
         Sleep(50);
         game.EraseCar();
-        EraseEnemy(0);
-        EraseEnemy(1);
-
-        if (enemyY[0] == 10 && enemyFlag[1] == 0)
-        {
-            enemyFlag[1] = 1;
-        }
-        if (enemyFlag[0] == 1)
-        {
-            enemyY[0]++;
-        }
-        if (enemyFlag[1] == 1)
-        {
-            enemyY[1]++;
-        }
-        if (enemyY[0] > SCREEN_HEIGHT - 4)
-        {
-            ResetEnemy(0);
-            game.OneUpScore();
-            game.UpdateScore();
-        }
-        if (enemyY[1] > SCREEN_HEIGHT - 4)
-        {
-            ResetEnemy(1);
-            game.OneUpScore();
-            game.UpdateScore();
-        }
+        game.EraseEnemyCars();
     }
 }
 
 int main()
 {
+    game.SetCursor(false, 0);
+
     srand((unsigned)time(NULL));
 
     while (game.IsPlaying())
     {
-        game.DisplayMenu();
+        game.DisplayMainMenu();
 
         char ch = _getche();
         switch (ch)

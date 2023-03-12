@@ -18,7 +18,7 @@ void PlayerCar::Draw(std::function<void(Position)> gotoFunction)
     }
 }
 
-void PlayerCar::Move(int moveX)
+void PlayerCar::MoveX(int moveX)
 {
     int nextPosition = this->position.x + moveX;
     if (nextPosition <= 18 || nextPosition >= 50)
