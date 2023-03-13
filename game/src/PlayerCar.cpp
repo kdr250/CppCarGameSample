@@ -38,3 +38,16 @@ void PlayerCar::Erase(std::function<void(Position)> gotoFunction)
         }
     }
 }
+
+bool PlayerCar::IsCollide(const std::unique_ptr<EnemyCar>& enemyCar)
+{
+    if (enemyCar->GetPosition().y + 4 >= 23)
+    {
+        if (enemyCar->GetPosition().x + 4 - this->position.x >= 0
+            && enemyCar->GetPosition().x + 4 - this->position.x < 9)
+        {
+            return true;
+        }
+    }
+    return false;
+}

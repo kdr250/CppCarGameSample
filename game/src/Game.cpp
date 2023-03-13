@@ -205,6 +205,16 @@ void Game::DrawEnemyCars()
                   });
 }
 
+bool Game::IsCollide()
+{
+    return std::any_of(this->enemyCars.begin(),
+                       this->enemyCars.end(),
+                       [this](std::unique_ptr<EnemyCar>& enemyCar)
+                       {
+                           return this->playerCar->IsCollide(enemyCar);
+                       });
+}
+
 void Game::EraseEnemyCars()
 {
     std::for_each(enemyCars.begin(),

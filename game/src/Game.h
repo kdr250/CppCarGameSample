@@ -6,7 +6,6 @@
 #include <memory>
 #include <vector>
 
-#include "EnemyCar.h"
 #include "PlayerCar.h"
 
 class Game
@@ -48,4 +47,5 @@ public:
     void UpdateEnemyCars();
     void DrawEnemyCars();
     void EraseEnemyCars();
+    bool IsCollide();
 };
