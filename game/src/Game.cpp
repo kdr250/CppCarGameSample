@@ -5,8 +5,9 @@
 
 Game::Game()
 {
-    this->isPlaying = true;
-    this->console   = GetStdHandle(STD_OUTPUT_HANDLE);
+    this->isContinuing = true;
+    this->isPlaying    = false;
+    this->console      = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD cursorPosition {};
     cursorPosition.X     = 0;
     cursorPosition.Y     = 0;
@@ -19,9 +20,9 @@ Game::Game()
     };
 }
 
-bool Game::IsPlaying() const
+bool Game::IsContinuing() const
 {
-    return this->isPlaying;
+    return this->isContinuing;
 }
 
 void Game::GoTo(Position position)
@@ -44,6 +45,7 @@ void Game::SetCursor(bool isVisible, DWORD size)
 void Game::GameOver()
 {
     this->enemyCars.clear();
+    this->isPlaying = false;
     std::system("CLS");
     std::cout << std::endl;
     std::cout << "\t\t--------------------------" << std::endl;
@@ -114,7 +116,7 @@ void Game::EraseCar()
 
 void Game::Quit()
 {
-    isPlaying = false;
+    isContinuing = false;
 }
 
 void Game::DisplayMainMenu()
@@ -234,8 +236,9 @@ void Game::Play()
     this->GenerateEnemyCars();
 
     this->DisplayPlayStartMenu();
+    this->isPlaying = true;
 
-    while (true)
+    while (isPlaying)
     {
         if (_kbhit())
         {

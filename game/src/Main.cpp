@@ -14,7 +14,7 @@ int main()
 
     srand((unsigned)time(NULL));
 
-    while (game.IsPlaying())
+    while (game.IsContinuing())
     {
         game.DisplayMainMenu();
 

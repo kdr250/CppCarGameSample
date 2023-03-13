@@ -11,6 +11,7 @@
 class Game
 {
 private:
+    bool isContinuing;
     bool isPlaying;
     HANDLE console;
     COORD cursorPosition;
@@ -29,7 +30,7 @@ public:
 
     Game();
 
-    bool IsPlaying() const;
+    bool IsContinuing() const;
     void GoTo(Position position);
     void SetCursor(bool isVisible, DWORD size);
     void GameOver();
