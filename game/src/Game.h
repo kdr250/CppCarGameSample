@@ -44,7 +44,7 @@ public:
     void DisplayMainMenu();
     void DisplayPlayStartMenu();
     void Quit();
-    void GenerateEnemyCars();
+    void GenerateEnemyCar();
     void UpdateEnemyCars();
     void DrawEnemyCars();
     void EraseEnemyCars();

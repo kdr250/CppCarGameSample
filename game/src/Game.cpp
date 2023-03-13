@@ -162,9 +162,8 @@ void Game::DisplayPlayStartMenu()
     std::cout << "                      ";
 }
 
-void Game::GenerateEnemyCars()
+void Game::GenerateEnemyCar()
 {
-    enemyCars.push_back(EnemyCar::Generate());
     enemyCars.push_back(EnemyCar::Generate());
 }
 
@@ -191,10 +190,12 @@ void Game::UpdateEnemyCars()
                                    }),
                     std::cend(enemyCars));
 
-    int diff = EnemyCar::NUMBER_OF_ENEMIES - enemyCars.size();
-    for (int i = 0; i < diff; i++)
+    if (enemyCars.size() == 0)
+        this->GenerateEnemyCar();
+
+    if (enemyCars.size() == 1 && enemyCars[0]->GetPosition().y == 10)
     {
-        enemyCars.push_back(EnemyCar::Generate());
+        this->GenerateEnemyCar();
     }
 }
 
@@ -233,7 +234,7 @@ void Game::Play()
     std::system("CLS");
     this->DrawBorder();
     this->UpdateScore();
-    this->GenerateEnemyCars();
+    this->GenerateEnemyCar();
 
     this->DisplayPlayStartMenu();
     this->isPlaying = true;
