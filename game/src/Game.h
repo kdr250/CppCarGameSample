@@ -48,4 +48,5 @@ public:
     void DrawEnemyCars();
     void EraseEnemyCars();
     bool IsCollide();
+    void Play();
 };

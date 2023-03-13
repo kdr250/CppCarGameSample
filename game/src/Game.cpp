@@ -43,6 +43,7 @@ void Game::SetCursor(bool isVisible, DWORD size)
 
 void Game::GameOver()
 {
+    this->enemyCars.clear();
     std::system("CLS");
     std::cout << std::endl;
     std::cout << "\t\t--------------------------" << std::endl;
@@ -223,4 +224,47 @@ void Game::EraseEnemyCars()
                   {
                       enemy->Erase(this->gotoFunction);
                   });
+}
+
+void Game::Play()
+{
+    std::system("CLS");
+    this->DrawBorder();
+    this->UpdateScore();
+    this->GenerateEnemyCars();
+
+    this->DisplayPlayStartMenu();
+
+    while (true)
+    {
+        if (_kbhit())
+        {
+            char ch = _getch();
+            if (ch == 'a' || ch == 'A')
+            {
+                this->MoveCar(-4);
+            }
+            if (ch == 'd' || ch == 'D')
+            {
+                this->MoveCar(4);
+            }
+            if (ch == 27)
+                break;
+        }
+
+        this->UpdateEnemyCars();
+
+        this->DrawCar();
+        this->DrawEnemyCars();
+
+        if (this->IsCollide())
+        {
+            this->GameOver();
+            return;
+        }
+
+        Sleep(50);
+        this->EraseCar();
+        this->EraseEnemyCars();
+    }
 }
