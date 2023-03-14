@@ -6,6 +6,11 @@ public:
     int x;
     int y;
 
+    bool operator==(const Position& other) const
+    {
+        return this->x == other.x && this->y == other.y;
+    }
+
     Position()
     {
         this->x = 0;

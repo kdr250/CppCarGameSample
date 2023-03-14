@@ -26,6 +26,6 @@ public:
     void Draw(std::function<void(Position)> gotoFunction);
     void Erase(std::function<void(Position)> gotoFunction);
     void MoveX(int moveX);
-    Position GetPosition() const;
     bool IsCollide(const std::unique_ptr<EnemyCar>& enemyCar);
+    Position GetPosition() const;
 };
