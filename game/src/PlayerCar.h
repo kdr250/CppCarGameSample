@@ -24,7 +24,8 @@ public:
     PlayerCar(int windowWidth);
 
     void Draw(std::function<void(Position)> gotoFunction);
-    void MoveX(int moveX);
     void Erase(std::function<void(Position)> gotoFunction);
+    void MoveX(int moveX);
     bool IsCollide(const std::unique_ptr<EnemyCar>& enemyCar);
+    Position GetPosition() const;
 };
