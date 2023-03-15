@@ -10,3 +10,22 @@ TEST(EnemyCarTest, WhenInitializeThenPositionAvailable)
 
     EXPECT_EQ(expected, actual);
 }
+
+TEST(EnemyCarTest, MoveTest)
+{
+    Position expected(4, 8);
+    EnemyCar enemycar(Position(4, 4));
+    enemycar.MoveY(4);
+    Position actual = enemycar.GetPosition();
+
+    EXPECT_EQ(expected, actual);
+}
+
+TEST(EnemyCarTest, DeadTest)
+{
+    EnemyCar enemycar(Position(4, 4));
+    enemycar.Dead();
+    bool actual = enemycar.IsDead();
+
+    EXPECT_TRUE(actual);
+}
